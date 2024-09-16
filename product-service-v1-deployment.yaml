@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: product-service-v1
+spec:
+  replicas: 3
+  revisionHistoryLimit: 6
+  selector:
+    matchLabels:
+      app: product-service-v1
+  template:
+    metadata:
+      labels:
+        app: product-service-v1
+    spec:
+      containers:
+      - image: jpaezr/product-service-v1
+        name: product-service-v1
+        ports:
+        - containerPort: 3000
+        envFrom:
+        - configMapRef:
+            name: product-service-v1-config
