@@ -45,7 +45,7 @@ jobs:
 
     - name: Update values.yaml
       run: |
-        sed -i 's|image: aursalva1/product-service-v1:.*|image: aursalva1/product-service-v1:${{ github.sha }}|' master-kubernetes/values.yaml
+        sed -i 's|image: aursalva1/product-service-v1:.*|image: aursalva1/product-service-v1:${{ github.sha }}|' values.yaml
 
     - name: Commit and push changes
       run: |
