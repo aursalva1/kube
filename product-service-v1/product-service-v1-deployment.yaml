@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: product-service-v1
 spec:
-  replicas: 6
+  replicas: 3
   revisionHistoryLimit: 6
   selector:
     matchLabels:
