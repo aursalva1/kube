@@ -45,8 +45,7 @@ jobs:
 
     - name: Update values.yaml
       run: |
-        cd master-kubernetes
-        sed -i 's|image: aursalva1/product-service-v1:.*|image: aursalva1/product-service-v1:${{ github.sha }}|' values.yaml
+        sed -i 's|image: aursalva1/product-service-v1:.*|image: aursalva1/product-service-v1:${{ github.sha }}|' master-kubernetes/values.yaml
 
     - name: Commit and push changes
       run: |
@@ -55,7 +54,7 @@ jobs:
         git config user.name "aursalva1"
         git add values.yaml
         git commit -m "Update image tag to ${{ github.sha }}"
-        git push
+        git push origin main
 
     - name: Trigger ArgoCD sync
       run: |
