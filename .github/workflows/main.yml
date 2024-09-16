@@ -1,0 +1,70 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '20'
+
+    - name: Install dependencies
+      working-directory: ./product-service
+      run: npm install
+
+    - name: Run tests
+      working-directory: ./product-service
+      run: npm test
+
+    - name: Build Docker image
+      run: |
+        docker build -t aursalva1/product-service-v1:${{ github.sha }} .
+
+    - name: Log in to Docker Hub
+      uses: docker/login-action@v2
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+
+    - name: Push Docker image
+      run: |
+        docker push aursalva1/product-service-v1:${{ github.sha }}
+
+    - name: Clone master-kubernetes repository
+      run: |
+        git clone https://github.com/aursalva1/master-kubernetes.git
+        cd master-kubernetes
+
+    - name: Update values.yaml
+      run: |
+        cd master-kubernetes
+        sed -i 's|image: aursalva1/product-service-v1:.*|image: aursalva1/product-service-v1:${{ github.sha }}|' values.yaml
+
+    - name: Commit and push changes
+      run: |
+        cd master-kubernetes
+        git config user.email "aursalva1@gmail.com"
+        git config user.name "aursalva1"
+        git add values.yaml
+        git commit -m "Update image tag to ${{ github.sha }}"
+        git push
+
+    - name: Trigger ArgoCD sync
+      run: |
+        kubectl argo rollouts restart deployment/product-service-v1 -n litethinking
+
+    - name: Wait for ArgoCD to sync and verify deployment
+      run: |
+        kubectl rollout status deployment/product-service-v1 -n litethinking
+        kubectl get pods -n litethinking
+        kubectl logs -l app=product-service-v1 -n litethinking
