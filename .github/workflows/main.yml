@@ -68,4 +68,3 @@ jobs:
         kubectl rollout status deployment/product-service-v1 -n litethinking
         kubectl get pods -n litethinking
         kubectl logs -l app=product-service-v1 -n litethinking
-
