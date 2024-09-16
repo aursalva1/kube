@@ -10,7 +10,7 @@ spec:
   project: default
   source: 
     path: product-service-v1
-    repoURL: "https://github.com/aursalva1/kube.git"
+    repoURL: "https://github.com/jouncato/master-kubernetes.git"
     targetRevision: main
   syncPolicy:
     syncOptions:
