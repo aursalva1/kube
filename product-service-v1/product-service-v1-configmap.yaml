@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: product-service-v1-config
+data:
+  DB_NAME: "ltstest001"
+  DB_USER: "litethinking"
+  DB_PASSWORD: "B4s3sLiteTh1k1n6"
+  DB_HOST: "54.235.3.74"
+  DB_PORT: "5432"
+  PORT: "3000"
