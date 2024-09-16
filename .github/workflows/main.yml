@@ -47,12 +47,10 @@ jobs:
 
     - name: Update values.yaml
       run: |
-        cd master-kubernetes
         sed -i 's|image: aursalva1/product-service-v1:.*|image: aursalva1/product-service-v1:${{ github.sha }}|' values.yaml
 
     - name: Commit and push changes
       run: |
-        cd master-kubernetes
         git config user.email "aursalva1@gmail.com"
         git config user.name "aursalva1"
         git add values.yaml
