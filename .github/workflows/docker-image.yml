@@ -35,8 +35,8 @@ jobs:
         with:
           context: .
 	  file: Dockerfile
-          push: true
-          tags: aursalva1/product-service-v:20240915
+          push:true
+          tags:aursalva1/product-service-v:20240915
 
 promote-to-dev-environment:
   runs-on: ubuntu-latest
