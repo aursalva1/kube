@@ -17,9 +17,6 @@ jobs:
       - name: List files in the working directory  # Depurar la estructura de archivos
         run: ls -al
 
-      - name: List files in product-service-v1 folder  # Si es necesario verificar subcarpeta
-        run: ls -al product-service-v1
-
       - name: Print current working directory  # Imprime el directorio actual para confirmar el contexto
         run: pwd
 
@@ -35,10 +32,10 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v3
         with:
-          context: ./product-service-v1  # Ajusta la ruta según sea necesario
-          file: ./product-service-v1/Dockerfile  # Ajusta si está en una subcarpeta (por ejemplo: ./product-service-v1/Dockerfile)
+          context: ./  # Contexto de construcción (raíz del repositorio)
+          file: ./Dockerfile  # Archivo Dockerfile en la raíz del repositorio
           push: true
-          tags: aursalva1/product-service-v1:20240918  # Asegúrate de que el tag es correcto
+          tags: aursalva1/product-service-v1:20240918  # Etiqueta de la imagen
           no-cache: true  # Desactiva el uso de caché en la construcción
 
       - name: Log out from Docker Hub
