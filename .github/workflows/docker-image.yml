@@ -38,7 +38,7 @@ jobs:
           context: ./  # Ajusta la ruta según sea necesario
           file: ./Dockerfile  # Ajusta si está en una subcarpeta (por ejemplo: ./product-service-v1/Dockerfile)
           push: true
-          tags: aursalva1/product-service-v1:20240915  # Asegúrate de que el tag es correcto
+          tags: aursalva1/product-service-v1:20240918  # Asegúrate de que el tag es correcto
           no-cache: true  # Desactiva el uso de caché en la construcción
 
       - name: Log out from Docker Hub
