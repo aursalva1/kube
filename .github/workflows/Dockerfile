@@ -1,4 +1,4 @@
-# Usa la imagen oficial de Node.js 20 como base  
+# Usa la imagen oficial de Node.js 20 como base
 FROM node:20-alpine3.20
 # Establece el directorio de trabajo en /app
 WORKDIR /app
