@@ -11,9 +11,14 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # Asegura que todo el historial y archivos sean clonados correctamente
 
-      - name: List files in the working directory  # Este paso es nuevo
+      - name: List files in the working directory  # Este paso lista los archivos en el directorio de trabajo
         run: ls -al
+
+      - name: Print current working directory  # Imprime el directorio actual para confirmar el contexto
+        run: pwd
 
       - name: Login to Docker Hub
         uses: docker/login-action@v2
@@ -22,13 +27,13 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2  # Usa la acción correcta para configurar Buildx
+        uses: docker/setup-buildx-action@v2
 
       - name: Build and push Docker image
-        uses: docker/build-push-action@v3  # Usa la versión correcta de build-push-action
+        uses: docker/build-push-action@v3
         with:
-          context: .
-          file: Dockerfile
+          context: ./  # Asegura que el contexto de construcción sea correcto
+          file: ./Dockerfile  # Asegúrate de que la ruta del Dockerfile esté bien
           push: true
           tags: aursalva1/product-service-v1:20240915  # Asegúrate de que el tag es correcto
 
