@@ -12,13 +12,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
         with:
-          fetch-depth: 0  # Asegura que todo el historial y archivos sean clonados correctamente
+          fetch-depth: 0  # Clona todo el repositorio
 
-      - name: List files in the working directory  # Este paso lista los archivos en el directorio de trabajo
-        run: ls -al
-
-      - name: Print current working directory  # Imprime el directorio actual para confirmar el contexto
-        run: pwd
+      - name: Print current working directory and list files  # Verifica la ubicación del Dockerfile
+        run: |
+          pwd
+          ls -al
 
       - name: Login to Docker Hub
         uses: docker/login-action@v2
@@ -32,10 +31,11 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v3
         with:
-          context: ./  # Asegura que el contexto de construcción sea correcto
-          file: ./Dockerfile  # Asegúrate de que la ruta del Dockerfile esté bien
+          context: .  # Asegúrate de que el contexto es el directorio correcto
+          file: ./Dockerfile  # Especifica la ruta del Dockerfile
           push: true
-          tags: aursalva1/product-service-v1:20240915  # Asegúrate de que el tag es correcto
+          tags: aursalva1/product-service-v1:20240915  # Tag para la imagen
+          no-cache: true  # Desactiva el uso de caché en la construcción
 
       - name: Log out from Docker Hub
         run: docker logout
