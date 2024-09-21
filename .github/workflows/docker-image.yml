@@ -17,7 +17,7 @@ jobs:
       - name: List files in the working directory  # Depurar la estructura de archivos
         run: ls -al
 
-      - name: Print current working directory  # Imprime el directorio actual para confirmar el contexto
+      - name: Print current working directory  # Imprime el directorio actual nnnpara confirmar el contexto
         run: pwd
 
       - name: Login to Docker Hub
