@@ -26,8 +26,8 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v3
         with:
-          context: ./docker  # Ajusta si el Dockerfile está en una subcarpeta
-          file: ./docker/Dockerfile  # Ajusta la ruta al Dockerfile
+          context: ./  # Contexto de construcción (raíz del repositorio)
+          file: ./Dockerfile  # Archivo Dockerfile en la raíz del repositorio
           push: true
           tags: aursalva1/product-service-v1:${{ github.sha }}
           no-cache: true
