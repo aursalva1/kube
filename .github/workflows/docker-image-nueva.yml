@@ -15,7 +15,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: List files
-        run: ls -al  # Este paso debe mostrar si el Dockerfile está presente
+        run: ls -al .github/workflows  # Muestra los archivos en la carpeta de workflows
 
       - name: Log in to Docker Hub
         uses: docker/login-action@v2
@@ -27,7 +27,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: ./  # Contexto de construcción (raíz del repositorio)
-          file: ./Dockerfile  # Asegúrate de que este sea el nombre y la ubicación correctos
+          file: .github/workflows/Dockerfile  # Ruta correcta al Dockerfile
           push: true
           tags: aursalva1/product-service-v1:${{ github.sha }}
           no-cache: true
