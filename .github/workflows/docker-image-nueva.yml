@@ -24,7 +24,7 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v3
         with:
-          context: ./  # Contexto de construcción (raíz del repositorio)
+          context: ./  # Contexto de construcción (raíz del repodsitorio)
           file: ./Dockerfile  # Archivo Dockerfile en la raíz del repositorio
           push: true
           tags: aursalva1/product-service-v1:${{ github.sha }}  # Etiqueta con el commit SHA
